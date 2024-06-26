@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-export default function Home() {
+import "../home.css";
+export default function Updatedhome() {
   const [videos, setVideos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8000/videos")
-      .then((response) => response.json())
-      .then((data) => setVideos(data))
-      .catch((error) => console.error("Error:", error));
-  }, []);
+    const fetchVideos = async () => {
+      let url = searchTerm
+        ? `http://localhost:8000/search?searchItem=${searchTerm}`
+        : "http://localhost:8000/videos";
+      const response = await fetch(url);
+      const data = await response.json();
+      setVideos(data);
+    };
+
+    fetchVideos().catch((error) => console.error("Error:", error));
+  }, [searchTerm]);
 
   return (
     <div>
@@ -27,8 +33,8 @@ export default function Home() {
       </h1>
       {videos.map((vid) => (
         <div key={vid.id}>
-          <h2>{vid.title}</h2>
-          <p>{vid.description}</p>
+          <h2 className="video-title">{vid.title}</h2>
+          <p className="video-description">{vid.description}</p>
           <video controls>
             <source
               src={`http://localhost:8000/${vid.video}`}

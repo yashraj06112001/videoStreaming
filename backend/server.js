@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const searchFunction = require("./searchAlgorithm");
 const secretKey = "secreyKey";
-
+const signUp = require("./signup");
 // Set up multer for handling file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -57,6 +57,7 @@ app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 app.use(range());
 app.use("/session", sessionRoutes);
+app.use(signUp);
 app.get("/videos", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM videos");
@@ -93,7 +94,7 @@ app.post("/upload", upload.single("video"), async (req, res) => {
 });
 
 // jwt token
-
+// this is the login handler
 app.post("/login", (req, res) => {
   const { id, username, email } = req.body;
   const user = { id, username, email };

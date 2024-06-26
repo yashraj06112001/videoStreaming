@@ -7,7 +7,8 @@ import Login from "./components/login.js";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import SessionCheck from "./components/sessionCheck.js";
 import Profile from "./components/profile.js";
-import Updatedhome from "./components/updatedhome.js";
+
+import Signup from "./components/signup.js";
 function App() {
   return (
     <>
@@ -20,7 +21,8 @@ function App() {
           <Route path="/sessionCheck" element={<SessionCheck />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/updatedhome" element={<Updatedhome />} />
+
+          <Route path="/signUp" element={<Signup />} />
         </Routes>
       </Router>
     </>
